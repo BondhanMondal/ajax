@@ -1,6 +1,13 @@
 <?php 
 	include 'dboperations.php';
-	$users = getAllUsers();
+
+	$data = $_REQUEST['username'];
+
+	if(empty($_GET['search']) or empty($_GET['username'])) {
+		$users = getAllUsers();
+	}
+	else
+		$users = liveSearch($data);
 
 ?>
 <!DOCTYPE html>
@@ -8,15 +15,18 @@
 <head>
 	<meta charset="utf-8">
 	<title>Search Page</title>
+	<script src="search.js"></script>
 </head>
 <body>
 	<h1>User List</h1>
 
-	<formform action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET">
-		<input type="text" name="username" id="username">
-		<input type="submit" name="search" id="search" value="Search">
+	<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET">
+		<input type="text" name="username" id="username" value="<?php if(isset($_REQUEST['username'])) echo $data; ?>" onkeyup="search()">
+		<input type="submit" name="search" id="search" value="Search" onclick="">
 		
 	</form>
+
+	<div id='result'></div>
 
 	<?php
 

@@ -31,4 +31,21 @@
 		return $records->fetch_all(MYSQLI_ASSOC);		
 	}
 
+	function liveSearch( $name) {
+		$conn = connect();
+
+		// $stmt = $conn->prepare("SELECT id, username FROM USERS WHERE username  LIKE username = ?");
+		// $stmt->bind_param("s", $name,);
+		// $records = $stmt->get_result();
+		// return $records->fetch_all(MYSQLI_ASSOC);
+
+
+		$sql = "select * from users where username like '%{$name}%'";
+		$result = mysqli_query($conn, $sql);
+		return $result->fetch_all(MYSQLI_ASSOC);
+
+
+
+	}
+
 ?>
